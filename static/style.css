@@ -70,17 +70,29 @@ body{
 #add-button{
     float: right;
     /* width: 20%; */
-    font-size: 12px;
+    font-size: 17px;
     color: white;
     background-color: transparent;
     border: none;
     padding: 0 5px;
 }
 
+#delete-button{
+    float: right;
+    font-size: 17px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    padding: 0 px;
+}
+
 #add-button:hover{
     background-color: rgba(94, 94, 94, 0.8);
 }
 
+#delete-button:hover{
+    background-color: red;
+}
 
 .modal-header{
     border-bottom: 0 none;

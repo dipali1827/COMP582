@@ -16,10 +16,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         $(this).find('[autofocus]').focus();
     });
     
-
-    
     const activeChannel = localStorage.getItem('activeChannel');
-
 
     var load_prev = false;
     Array.from(document.querySelectorAll('#channels>li'), li => {
@@ -28,13 +25,11 @@ document.addEventListener('DOMContentLoaded', () =>{
     return load_prev
     });
 
-
     
     if (load_prev)
         load_channel(activeChannel);
     else
         load_channel('general');
-
 
     
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
@@ -92,15 +87,33 @@ document.addEventListener('DOMContentLoaded', () =>{
 
             // Add a deleteOption to delete the message send by the respective user, By default it's False 
            
-            
             const content = template({'users_msgs': users_msgs});
-             
+            
             document.querySelector("#msgs").innerHTML += content;
             // Set the amount of vertical scroll equal to total container size 
             messages.scrollTop = messages.scrollHeight;
             SetDeleteButton();
         };
         request.send();
+    }
+
+    //Delete Channel Function
+    function deleteButton() {
+        var channel_name = document.querySelector('#channel');
+        document.querySelectorAll('.delete_channel_button').forEach(button => {
+            button.onclick = function() {
+                this.parentElement.style.animationPlayState = running;
+                this.parentElement.addEventListener('animationend', () => {
+                    this.parentElement.remove();
+                    const request = newXMLHttpRequest();
+                    const deleteButton = this.parentElement.querySelector('#delete-button');
+                    const channel = localStorage.getItem('activeChannel');
+                    /*const temp = localStorage.getItem('username');
+                    localStorage.getItem('activeChannel', channel);*/
+                    request.open('DELETE', '/channel/${channel}/');
+                });
+            }
+        });
     }
 
 
@@ -132,8 +145,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         }
 
     });
-
-
     
     socket.on('announce message', data => {
         if (data.success){
@@ -155,8 +166,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         
     });
     
-
-    
     socket.on('announce channel', data => {
         if (data.success){
             // $('#addChannelModal').modal('delete');
@@ -177,3 +186,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         
     });
 });
+
+// function deleteButton(){
+//     alert ("Which channel do you want to delete?");
+// };

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a3fd3fc381.js" crossorigin="anonymous"></script>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -52,11 +53,12 @@
                 <h2 id="display-name">{{ username }}</h2>
                 <hr id="myhr">
                 <span style="color: white;">Channels</span>
-                  <button id="add-button" data-toggle="modal" data-target="#addChannelModal"><i class="fa fa-plus"></i></button>
+                <button id="add-button" data-toggle="modal" data-target="#addChannelModal"><i class="fa fa-plus"></i></button>
                 <div class="channels-div">
                   <ul id="channels">
                     {% for channel in channels %}
                       <li id="{{channel}}"><a href="" class="channel-link" data-channel={{channel}}>{{ channel }}</a></li>
+                      <button id="delete-button" onclick="deleteButton()"><i class="fas fa-trash-alt"></i></button>
                     {% endfor %}
                   </ul>
 
