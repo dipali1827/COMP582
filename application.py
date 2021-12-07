@@ -86,6 +86,24 @@ def delete_msg(activeChannel, hiddenMsg):
             return 'OK'
     
     return 'OK'
+
+# @app.route('/deleteButton/<channel>')
+# def deleteButton(channel):
+#     delChannel = list(channel)
+#     delChannel.pop()
+#     channel_list = channel_msgs[channel]
+#     for i in range(len(channel_list)):
+#         if channel_list[i] == delChannel:
+#             del channel_msgs[channel][i]
+#             return 'OK'
     
+#     return 'OK'
 
+@socketio.on("delete channel")
+def delete_channel(channel):
+    delchannel = list(channel)
+    delchannel.pop()
+    if channel["name"] in channels: 
+        delchannel[channel["name"]]
 
+    emit('channels' , {'channels': list(channels.keys()), 'deleted': True}, broadcast=True)
